@@ -1,4 +1,6 @@
 int main(int ac, char **av)
 {
-	return (0);
+	if (ac == 1)
+		return (0);
+
 }
