@@ -10,15 +10,31 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
 #include <fcntl.h>
 
 int main(int ac, char **av)
 {
+	int		fd;
+	char	*line;
+	int		read_size;
+	char	buf[BUFF_SIZE + 1];
+
 	if (ac == 1)
-		return (0);
-	else if (ac >= 2)
-	{
+		fd = 0;
+	else if (ac == 2)
+		fd = open(av[1], O_RDONLY);
+	else
+		return (ac);
 
-	}
-
+	read_size = read(fd, buf, BUFF_SIZE);
+	buf[read_size] = '\0';
+	ft_putendl(buf);
+//	while (get_next_line(fd, &line) == 1)
+//	{
+//		ft_putendl(line);
+//		free(line);
+//	}
+//	if (ac == 2)
+//		close(fd);
 }

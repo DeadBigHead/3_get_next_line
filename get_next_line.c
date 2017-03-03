@@ -14,4 +14,8 @@
 
 int	get_next_line(const int fd, char **line)
 {
+	int		read_size;
+	char	buf[BUFF_SIZE + 1];
+	char	tmp[] = "";
+
 }
