@@ -12,10 +12,29 @@
 
 #include "get_next_line.h"
 
-int	get_next_line(const int fd, char **line)
+static t_list	*get_file(t_list **head, const int fd)
 {
-	int		read_size;
-	char	buf[BUFF_SIZE + 1];
-	char	tmp[] = "";
+	t_list			*current;
 
+	current = *head;
+	while (current)
+	{
+		if (current->content_size == fd)
+			return (current);
+		current = current->next;
+	}
+	current = ft_lstnew();
+}
+
+int				get_next_line(const int fd, char **line)
+{
+	int				read_size;
+	char			buf[BUFF_SIZE + 1];
+	static t_list	*head;
+	t_list			*current;
+	char			tmp[] = "";
+
+	if (line == NULL || fd < 0 || BUFF_SIZE <= 0)
+		return (-1);
+	current = get_file(&head, fd);
 }

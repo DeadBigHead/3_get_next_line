@@ -14,7 +14,7 @@
 # define __GET_NEXT_LINE_H
 
 # include "libft.h"
-# define BUFF_SIZE 45
+# define BUFF_SIZE 55
 
 typedef int uint;
 

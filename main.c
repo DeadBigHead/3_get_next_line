@@ -12,12 +12,13 @@
 
 #include "get_next_line.h"
 #include <fcntl.h>
+#include <stdio.h>
 
 int main(int ac, char **av)
 {
 	int		fd;
 	char	*line;
-	int		read_size;
+	long	read_size;
 	char	buf[BUFF_SIZE + 1];
 
 	if (ac == 1)
@@ -30,6 +31,11 @@ int main(int ac, char **av)
 	read_size = read(fd, buf, BUFF_SIZE);
 	buf[read_size] = '\0';
 	ft_putendl(buf);
+	while ((read_size = read(fd, buf, BUFF_SIZE)))
+	{
+		printf("%ld\n", read_size);
+	}
+	printf("%ld\n", read_size);
 //	while (get_next_line(fd, &line) == 1)
 //	{
 //		ft_putendl(line);
