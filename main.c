@@ -27,20 +27,11 @@ int main(int ac, char **av)
 		fd = open(av[1], O_RDONLY);
 	else
 		return (ac);
-
-	read_size = read(fd, buf, BUFF_SIZE);
-	buf[read_size] = '\0';
-	ft_putendl(buf);
-	while ((read_size = read(fd, buf, BUFF_SIZE)))
+	while (get_next_line(fd, &line) == 1)
 	{
-		printf("%ld\n", read_size);
+		ft_putendl(line);
+		free(line);
 	}
-	printf("%ld\n", read_size);
-//	while (get_next_line(fd, &line) == 1)
-//	{
-//		ft_putendl(line);
-//		free(line);
-//	}
-//	if (ac == 2)
-//		close(fd);
+	if (ac == 2)
+		close(fd);
 }
