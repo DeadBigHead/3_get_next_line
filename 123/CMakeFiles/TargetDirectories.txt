@@ -1,0 +1,4 @@
+/nfs/2016/m/mvlad/cprojects/3_get_next_line/cmake-build-debug/CMakeFiles/edit_cache.dir
+/nfs/2016/m/mvlad/cprojects/3_get_next_line/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/nfs/2016/m/mvlad/cprojects/3_get_next_line/cmake-build-debug/CMakeFiles/gnl.dir
+/nfs/2016/m/mvlad/cprojects/3_get_next_line/cmake-build-debug/CMakeFiles/ft.dir

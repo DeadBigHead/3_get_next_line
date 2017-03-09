@@ -14,10 +14,9 @@
 # define __GET_NEXT_LINE_H
 
 # include "libft.h"
-# define BUFF_SIZE 10
+# define BUFF_SIZE 20
 # define PROTECT_N1(x) if (!x) return (-1);
-
-typedef int uint;
+# define PROTECT_N2(x, z, w) if (x == NULL || z < 0 || w) return (-1);
 
 int	get_next_line(const int fd, char **line);
 

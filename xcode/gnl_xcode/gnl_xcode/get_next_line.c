@@ -34,29 +34,34 @@ static t_list	*file_manage(t_list **head, const int fd)
 
 static int		gnl_magic(char **dst, char *src, const char delim)
 {
-	int				i;
+	int			i;
+	int				j;
 	char			*tmp;
 
 	i = 0;
+	j = 0;
 	while (src[i])
 	{
 		if (src[i] == delim)
 			break ;
 		i++;
 	}
-	if ((tmp = ft_strnew(i)) == NULL)
+	if ((*dst = ft_strnew(i)) == NULL)
 		return (0);
-	tmp = ft_strncpy(tmp, src, i);
-	*dst = ft_strdup(tmp);
-	free(tmp);
+	tmp = *dst;
+	while (src[j] && j < i)
+	{
+		tmp[j] = src[j];
+		j++;
+	}
 	return (i);
 }
 
 static void		gnl_i_ll_be_back(char **s, char delim)
 {
-	char			*tmp;
-	int				i;
-	int				len;
+	char *tmp;
+	int		i;
+	int 	len;
 
 	tmp = *s;
 	i = 0;
@@ -68,8 +73,10 @@ static void		gnl_i_ll_be_back(char **s, char delim)
 		i++;
 	}
 	i++;
+	free(*s);
 	*s = ft_strsub(tmp, i, len);
-	free(tmp);
+	//free(tmp);
+
 }
 
 int				get_next_line(const int fd, char **line)
@@ -78,15 +85,25 @@ int				get_next_line(const int fd, char **line)
 	char			buf[BUFF_SIZE + 1];
 	static t_list	*head;
 	t_list			*current;
-	char			*tmp;
+	char *tmp;
 
-	PROTECT_N2(line, fd, (read(fd, buf, 0)));
+	if (line == NULL || fd < 0 || read(fd, buf, 0))
+		return (-1);
 	current = file_manage(&head, fd);
+//	PROTECT_N1((*line = ft_strnew(BUFF_SIZE)));
+//	*line = NULL;
+//	if (current->content)
+//		current->content = (char*)malloc(sizeof(char) * ft_strlen(current->content));
+	tmp = NULL;
 	while ((read_size = read(fd, buf, BUFF_SIZE)))
 	{
-		tmp = ft_strdup(current->content);
-		free(current->content);
+		if (current->content)
+		{
+			tmp = ft_strdup(current->content);
+			free(current->content);
+		}
 		buf[read_size] = '\0';
+//		PROTECT_N1((current->content = ft_strjoin(current->content, buf)));
 		PROTECT_N1((current->content = ft_strjoin(tmp, buf)));
 		free(tmp);
 		if (ft_strchr(buf, '\n'))
@@ -95,8 +112,14 @@ int				get_next_line(const int fd, char **line)
 	if (read_size < BUFF_SIZE && !ft_strlen(current->content))
 		return (0);
 	read_size = gnl_magic(line, current->content, '\n');
+
 	(read_size < (int)ft_strlen(current->content))
-	? (gnl_i_ll_be_back((char**)&current->content, '\n'))
-	: (ft_strdel((char**)&current->content));
+	? (gnl_i_ll_be_back(&current->content ,'\n'))
+	: (ft_strdel(&current->content));
+
+//	if (read_size < (int)ft_strlen(current->content))
+//		gnl_i_ll_be_back((char**)&current->content ,'\n');
+//	else if (read_size >= (int)ft_strlen(current->content))
+//		ft_strdel((char**)&current->content);
 	return (1);
 }
